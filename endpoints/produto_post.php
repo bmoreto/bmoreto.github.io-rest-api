@@ -1,11 +1,10 @@
 <?php
 
-function api_produto_post($request)
-{
+function api_produto_post($request) {
   $user = wp_get_current_user();
   $user_id = $user->ID;
 
-  if ($user_id > 0) {
+  if($user_id > 0) {
     $nome = sanitize_text_field($request['nome']);
     $preco = sanitize_text_field($request['preco']);
     $descricao = sanitize_text_field($request['descricao']);
@@ -30,7 +29,7 @@ function api_produto_post($request)
 
     $files = $request->get_file_params();
 
-    if ($files) {
+    if($files) {
       require_once(ABSPATH . 'wp-admin/includes/image.php');
       require_once(ABSPATH . 'wp-admin/includes/file.php');
       require_once(ABSPATH . 'wp-admin/includes/media.php');
@@ -45,8 +44,7 @@ function api_produto_post($request)
   return rest_ensure_response($response);
 }
 
-function registrar_api_produto_post()
-{
+function registrar_api_produto_post() {
   register_rest_route('api', '/produto', array(
     array(
       'methods' => WP_REST_Server::EDITABLE,
@@ -56,3 +54,6 @@ function registrar_api_produto_post()
 }
 
 add_action('rest_api_init', 'registrar_api_produto_post');
+
+
+?>
